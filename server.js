@@ -8,7 +8,7 @@ let port = 6969;
 app.get("/", (req, res) => {
   console.log(req);
   res.json({
-    message: "Hello from the groot!",
+    message: "Hello from the groot boot!",
   });
 });
 
