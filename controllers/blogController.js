@@ -21,8 +21,7 @@ exports.createBlog = async (req, res) => {
     if (err) return handleError(err);
     console.log(post);
     res.json({
-        post,
-    })
+      post,
+    });
   });
- 
 };

@@ -1,5 +1,5 @@
 console.log("Blog API build v1.0...engage!");
-
+require("dotenv").config({ path: "./config.env" });
 const express = require("express");
 var mongoose = require("mongoose");
 const app = express();
@@ -8,10 +8,9 @@ const morgan = require("morgan");
 const blogModel = require("./models/Blog.js");
 
 // MongoDB Database Setup
-var mongoDB =
-  "mongodb+srv://riefer02:legacy21@blog-api-prototype-1.u94fe.mongodb.net/blog-db-1?retryWrites=true&w=majority";
+const database = process.env.MONGODB_URI.replace('<password>',process.env.MONGODB_PASSWORD);
 mongoose.connect(
-  mongoDB,
+  database,
   { useNewUrlParser: true, useUnifiedTopology: true },
   (con) => {
     console.log("Database connection successful");
