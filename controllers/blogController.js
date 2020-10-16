@@ -24,7 +24,6 @@ exports.getBlogByID = async (req, res) => {
 // POST new blog to db
 exports.createBlog = async (req, res) => {
   console.log("Creating blog...");
-  console.log(req.headers)
   var blogPost = new blogModel({
     title: req.body.title,
     topic: req.body.topic,
