@@ -23,7 +23,8 @@ exports.getBlogByID = async (req, res) => {
 
 // POST new blog to db
 exports.createBlog = async (req, res) => {
-    console.log('Creating blog...')
+  console.log("Creating blog...");
+  console.log(req.headers)
   var blogPost = new blogModel({
     title: req.body.title,
     topic: req.body.topic,
@@ -31,7 +32,7 @@ exports.createBlog = async (req, res) => {
   });
 
   await blogPost.save(function (err, post) {
-    if (err) return handleError(err);
+    if (err) return err;
     console.log(post);
     res.json({
       post,

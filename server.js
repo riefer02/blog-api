@@ -1,9 +1,11 @@
 console.log("Blog API build v1.0...engage!");
 require("dotenv").config({ path: "./config.env" });
 const express = require("express");
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const app = express();
 const morgan = require("morgan");
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 // const blogModel = require("./models/Blog.js");
 const blogRouter = require("./routes/blogRoutes");
@@ -27,6 +29,8 @@ let port = 6969;
 
 app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: true })); // Parse incoming requests
+app.use(bodyParser.json())
+app.use(cors())
 
 app.use("/blog", blogRouter);
 
