@@ -14,7 +14,7 @@ exports.getBlogs = async (req, res) => {
 // Retrieve specific blog from db
 exports.getBlogByID = async (req, res) => {
   let blog = await blogModel.find({ _id: req.params.id }, (err, blogPost) => {
-    if (err) return handleError(err);
+    if (err) return console.log(err);
   });
   res.json({
     blog,
