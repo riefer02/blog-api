@@ -30,7 +30,7 @@ exports.createBlog = async (req, res) => {
     summary: req.body.summary,
   });
 
-  await blogPost.save(function (err, post) {
+  await blogPost.save(function(err, post) {
     if (err) return err;
     console.log(post);
     res.json({
