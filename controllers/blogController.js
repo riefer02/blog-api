@@ -30,11 +30,21 @@ exports.createBlog = async (req, res) => {
     summary: req.body.summary,
   });
 
-  await blogPost.save(function(err, post) {
+  await blogPost.save(function (err, post) {
     if (err) return err;
     console.log(post);
     res.json({
       post,
     });
+  });
+};
+
+exports.deleteBlog = async (req, res) => {
+  console.log("Deleting blog...");
+  await blogModel.deleteOne({ _id: req.params.id }, (err, blogPost) => {
+    if (err) return console.log(err);
+  });
+  res.json({
+    message: 'blog-delete',
   });
 };
