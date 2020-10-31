@@ -45,6 +45,6 @@ exports.deleteBlog = async (req, res) => {
     if (err) return console.log(err);
   });
   res.json({
-    message: 'blog-delete',
+    message: "blog-delete",
   });
 };
