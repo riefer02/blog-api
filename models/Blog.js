@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 // Models and Schema
 var Schema = mongoose.Schema;
@@ -7,6 +7,6 @@ var blogSchema = new Schema({
   summary: String,
   topic: String,
 });
-var blogModel = mongoose.model('blog', blogSchema );
+var blogModel = mongoose.model("blog", blogSchema);
 
 module.exports = blogModel;

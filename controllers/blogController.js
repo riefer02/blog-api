@@ -3,7 +3,7 @@ const blogModel = require("../models/Blog.js");
 // Retrieve all blogs from db
 exports.getBlogs = async (req, res) => {
   let blogs = await blogModel.find({}, (err, blogPosts) => {
-    if (err) return handleError(err);
+    if (err) return console.log(err);
     console.log(blogPosts);
   });
   res.json({
@@ -13,7 +13,7 @@ exports.getBlogs = async (req, res) => {
 
 // Retrieve specific blog from db
 exports.getBlogByID = async (req, res) => {
-  let blog = await blogModel.find({ _id: req.params.id }, (err, blogPost) => {
+  let blog = await blogModel.find({ _id: req.params.id }, (err) => {
     if (err) return console.log(err);
   });
   res.json({
@@ -30,7 +30,7 @@ exports.createBlog = async (req, res) => {
     summary: req.body.summary,
   });
 
-  await blogPost.save(function (err, post) {
+  await blogPost.save(function(err, post) {
     if (err) return err;
     console.log(post);
     res.json({
@@ -41,10 +41,26 @@ exports.createBlog = async (req, res) => {
 
 exports.deleteBlog = async (req, res) => {
   console.log("Deleting blog...");
-  await blogModel.deleteOne({ _id: req.params.id }, (err, blogPost) => {
+  await blogModel.deleteOne({ _id: req.params.id }, (err) => {
     if (err) return console.log(err);
   });
   res.json({
-    message: "blog-delete",
+    message: "blog deleted successfully",
+  });
+};
+
+exports.updateBlog = async (req, res) => {
+  console.log("Updating blog...");
+  console.log(req.body);
+  const updatedBlog = req.body;
+  await blogModel.findOneAndUpdate(
+    { _id: req.params.id },
+    updatedBlog,
+    (err) => {
+      if (err) return console.log(err);
+    }
+  );
+  res.json({
+    message: "blog updated successfully",
   });
 };
