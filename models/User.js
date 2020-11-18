@@ -10,7 +10,7 @@ const User = mongoose.model(
     },
     passwordConfirm: {
         type: String,
-    }
+    },
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
