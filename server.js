@@ -9,6 +9,8 @@ const bodyParser = require("body-parser");
 
 // const blogModel = require("./models/Blog.js");
 const blogRouter = require("./routes/blogRoutes");
+const authRouter = require("./routes/authRoutes");
+const userRouter = require("./routes/userRoutes");
 
 // MongoDB Database Setup
 const database = process.env.MONGODB_URI.replace(
@@ -34,6 +36,8 @@ app.use(express.urlencoded({ extended: true })); // Parse incoming requests
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/blog", blogRouter);
+app.use("/auth", authRouter);
+app.use("/user", userRouter);
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
