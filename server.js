@@ -1,5 +1,6 @@
 console.log("Blog API build v1.0...engage!");
-require("dotenv").config({ path: "./config.env" });
+// require("dotenv").config({ path: "./config.env" });
+const { MONGODB_PASSWORD, MONGODB_URI, NODE_ENV } = require("./config");
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
@@ -13,16 +14,12 @@ const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
 
 // MongoDB Database Setup
-const database = process.env.MONGODB_URI.replace(
-  "<password>",
-  process.env.MONGODB_PASSWORD
-);
+const database = MONGODB_URI.replace("<password>", MONGODB_PASSWORD);
 mongoose.connect(
   database,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  (con) => {
+  () => {
     console.log("Database connection successful");
-    console.log(con);
   }
 );
 var db = mongoose.connection;
@@ -35,10 +32,10 @@ app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: true })); // Parse incoming requests
 app.use(bodyParser.json());
 app.use(cors());
-app.use("/blog", blogRouter);
-app.use("/auth", authRouter);
-app.use("/user", userRouter);
+app.use("/api/v1/blog", blogRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log(`listening on port ${port}`);
 });

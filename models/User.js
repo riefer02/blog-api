@@ -5,11 +5,11 @@ const User = mongoose.model(
   new mongoose.Schema({
     username: String,
     email: String,
-    password:{ 
-        type: String,
+    password: {
+      type: String,
     },
     passwordConfirm: {
-        type: String,
+      type: String,
     },
     roles: [
       {
