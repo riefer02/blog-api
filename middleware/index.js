@@ -12,5 +12,5 @@ const setResponseHeaders = (req, res, next) => {
 module.exports = {
   authJwt,
   verifySignUp,
-  setResponseHeaders
+  setResponseHeaders,
 };

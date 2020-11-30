@@ -35,7 +35,12 @@ exports.signUp = async (req, res) => {
               res.status(500).send({ message: err });
               return;
             }
-            res.send({ message: "User was registered successfully!" });
+            const token = jwt.sign({ user }, JWT_SECRET);
+
+            res.status(201).json({
+              token,
+              user,
+            });
           });
         }
       );
@@ -53,8 +58,12 @@ exports.signUp = async (req, res) => {
             res.status(500).send({ message: err });
             return;
           }
+          // Give new user JWT Token with secret
+          const token = jwt.sign({ user }, JWT_SECRET);
+
           res.status(201).json({
-            status: "User was registered successfully!",
+            token,
+            user,
           });
         });
       });
@@ -63,6 +72,7 @@ exports.signUp = async (req, res) => {
 };
 
 exports.signIn = (req, res) => {
+  console.log("trying to sign in...");
   User.findOne({
     username: req.body.username,
   })
@@ -84,7 +94,7 @@ exports.signIn = (req, res) => {
 
       if (!passwordIsValid) {
         return res.status(401).send({
-          accessToken: null,
+          token: null,
           message: "Invalid Password!",
         });
       }
@@ -99,11 +109,8 @@ exports.signIn = (req, res) => {
         authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
       }
       res.status(200).send({
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        roles: authorities,
-        accessToken: token,
+        user,
+        token,
       });
     });
 };
