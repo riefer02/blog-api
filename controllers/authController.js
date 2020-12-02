@@ -71,20 +71,20 @@ exports.signUp = async (req, res) => {
   });
 };
 
-exports.signIn = (req, res) => {
+exports.login = async (req, res) => {
   console.log("trying to sign in...");
-  User.findOne({
+  await User.findOne({
     username: req.body.username,
   })
     .populate("roles", "-__v")
     .exec((err, user) => {
       if (err) {
-        res.status(500).send({ message: err });
+        res.status(500).json({ err });
         return;
       }
 
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(404).json({ error: "User Not found." });
       }
 
       const passwordIsValid = bcrypt.compareSync(
