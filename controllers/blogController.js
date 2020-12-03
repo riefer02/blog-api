@@ -28,6 +28,7 @@ exports.createBlog = async (req, res) => {
     title: req.body.title,
     topic: req.body.topic,
     summary: req.body.summary,
+    author: req.body.author,
   });
 
   await blogPost.save(function (err, post) {

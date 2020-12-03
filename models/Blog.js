@@ -6,6 +6,7 @@ var blogSchema = new Schema({
   title: String,
   summary: String,
   topic: String,
+  author: String,
 });
 var blogModel = mongoose.model("blog", blogSchema);
 
