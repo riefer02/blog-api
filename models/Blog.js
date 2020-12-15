@@ -8,7 +8,7 @@ var blogSchema = new Schema(
     summary: String,
     topic: String,
     author: String,
-    likes: Number,
+    likes: Array,
     comments: Array,
   },
   { timestamps: { createdAt: "created_at" } }
