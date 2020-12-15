@@ -8,6 +8,11 @@ const morgan = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+// build modules
+const history = require("connect-history-api-fallback");
+const path = require("path");
+const publicPath = path.resolve(__dirname, "./");
+
 // const blogModel = require("./models/Blog.js");
 const blogRouter = require("./routes/blogRoutes");
 const authRouter = require("./routes/authRoutes");
@@ -28,10 +33,20 @@ db.on("error", console.error.bind(console, "MongoDB connection error:")); //Get 
 
 let port = 6969 || process.env.PORT;
 
-app.use(morgan("combined"));
+// app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: true })); // Parse incoming requests
 app.use(bodyParser.json());
 app.use(cors());
+
+app.use(history()); // SPA Application Requirement
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(publicPath));
+  app.get(/.*/, (req, res) => {
+    res.sendFile(path.resolve(__dirname, "index.html"));
+  });
+}
+
 app.use("/api/v1/blog", blogRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
