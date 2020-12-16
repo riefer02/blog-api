@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 // build modules
 const history = require("connect-history-api-fallback");
 const path = require("path");
-const publicPath = path.resolve(__dirname, "./");
+const publicPath = path.resolve(__dirname, "./public/");
 
 // const blogModel = require("./models/Blog.js");
 const blogRouter = require("./routes/blogRoutes");
@@ -33,14 +33,14 @@ db.on("error", console.error.bind(console, "MongoDB connection error:")); //Get 
 
 let port = 6969 || process.env.PORT;
 
-// app.use(morgan("combined"));
+app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: true })); // Parse incoming requests
 app.use(bodyParser.json());
 app.use(cors());
 
 app.use(history()); // SPA Application Requirement
 
-if (process.env.NODE_ENV === "production") {
+if (NODE_ENV === "production") {
   app.use(express.static(publicPath));
   app.get(/.*/, (req, res) => {
     res.sendFile(path.resolve(__dirname, "index.html"));
