@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 // build modules
 const history = require("connect-history-api-fallback");
 const path = require("path");
-const publicPath = path.resolve(__dirname, "./public/");
+const publicPath = path.resolve(__dirname, "./public");
 
 // const blogModel = require("./models/Blog.js");
 const blogRouter = require("./routes/blogRoutes");
@@ -40,11 +40,14 @@ app.use(cors());
 
 app.use(history()); // SPA Application Requirement
 
+console.log(NODE_ENV)
+console.log(publicPath)
+
 if (NODE_ENV === "production") {
   app.use(express.static(publicPath));
-  app.get(/.*/, (req, res) => {
-    res.sendFile(path.resolve(__dirname, "index.html"));
-  });
+  // app.get(/.*/, (req, res) => {
+  //   res.sendFile(path.resolve(__dirname, "./index.html"));
+  // });
 }
 
 app.use("/api/v1/blog", blogRouter);

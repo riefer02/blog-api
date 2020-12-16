@@ -4,7 +4,7 @@ const Blog = require("../models/Blog.js");
 exports.getBlogs = async (req, res) => {
   let blogs = await Blog.find({}, (err, blogPosts) => {
     if (err) return console.log(err);
-    console.log(blogPosts);
+    // console.log(blogPosts);
   });
   res.json({
     blogs,
