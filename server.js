@@ -7,9 +7,10 @@ const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
+const history = require("connect-history-api-fallback");
 
 // build modules
-const history = require("connect-history-api-fallback");
 const path = require("path");
 const publicPath = path.resolve(__dirname, "./public");
 
@@ -31,14 +32,20 @@ var db = mongoose.connection;
 mongoose.set("useFindAndModify", false);
 db.on("error", console.error.bind(console, "MongoDB connection error:")); //Get Connection Error Event
 
-let port = 6969 || process.env.PORT;
+let port = process.env.PORT || 6969;
+if (port === null || port === "") port = 6969;
 
-// app.use(morgan("combined"));
+if (NODE_ENV === "development") {
+  app.use(morgan("combined"));
+}
+
 app.use(express.urlencoded({ extended: true })); // Parse incoming requests
 app.use(bodyParser.json());
 app.use(cors());
 
 app.use(history()); // SPA Application Requirement
+app.use(helmet()); // HTTP Security Headers
+// console.log(helmet.contentSecurityPolicy.getDefaultDirectives()); // Check CSP Directives
 
 if (NODE_ENV === "production") {
   app.use(express.static(publicPath));
