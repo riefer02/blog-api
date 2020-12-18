@@ -44,8 +44,14 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(history()); // SPA Application Requirement
-app.use(helmet()); // HTTP Security Headers
-// console.log(helmet.contentSecurityPolicy.getDefaultDirectives()); // Check CSP Directives
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      "script-src": ["'self'", "'unsafe-eval'"],
+    },
+  })
+);
 
 if (NODE_ENV === "production") {
   app.use(express.static(publicPath));
