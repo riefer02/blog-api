@@ -54,12 +54,15 @@ app.use(
   })
 );
 
+console.log(NODE_ENV);
+
 if (NODE_ENV === "production" || process.env.NODE_ENV === "production") {
   app.use(express.static(publicPath));
   app.get("/", function (req, res) {
     res.sendFile(publicPath + "/index.html");
   });
 }
+
 
 app.use("/api/v1/blog", blogRouter);
 app.use("/api/v1/auth", authRouter);
