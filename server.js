@@ -1,5 +1,5 @@
 console.log("Blog API build v1.0...engage!");
-// require("dotenv").config({ path: "./config.env" });
+
 const { MONGODB_PASSWORD, MONGODB_URI, NODE_ENV } = require("./config");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -21,8 +21,9 @@ const userRouter = require("./routes/userRoutes");
 
 // MongoDB Database Setup
 const database = MONGODB_URI.replace("<password>", MONGODB_PASSWORD);
+
 mongoose.connect(
-  database,
+  database || process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
     console.log("Database connection successful");
@@ -53,12 +54,10 @@ app.use(
   })
 );
 
-console.log(NODE_ENV)
-
 if (NODE_ENV === "production" || process.env.NODE_ENV === "production") {
   app.use(express.static(publicPath));
-  app.get('/', function (req, res) {
-    res.sendFile(publicPath + '/index.html');
+  app.get("/", function (req, res) {
+    res.sendFile(publicPath + "/index.html");
   });
 }
 

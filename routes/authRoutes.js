@@ -4,7 +4,7 @@ var router = express.Router();
 const authController = require("../controllers/authController.js");
 const { verifySignUp, setResponseHeaders } = require("../middleware");
 
-router.get("/initRoles", authController.initRoles); // Initialize Roles in DB Collection
+router.post("/initRoles", authController.initRoles); // Initialize Roles in DB Collection
 
 router.post(
   "/signup",
