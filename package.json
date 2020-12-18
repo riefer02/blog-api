@@ -4,7 +4,7 @@
   "description": "api for blog-ui",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node server.js",
+    "start": "node server.js",
     "start:dev": "NODE_ENV=development nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js"
   },
