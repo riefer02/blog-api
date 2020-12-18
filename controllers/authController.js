@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { JWT_SECRET } = require("../config.js");
 
+const secret = JWT_SECRET ? JWT_SECRET : process.env.JWT_SECRET;
+
 // User Sign Up Functionality
 exports.signUp = async (req, res) => {
   const newUser = await User.create({
@@ -11,10 +13,11 @@ exports.signUp = async (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
   });
-
+  console.log(newUser + "newUser created.");
   newUser.save((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
+      console.log("There was an error saving the user.");
       return;
     }
     // If new user has a role already assign that to their document
@@ -35,7 +38,8 @@ exports.signUp = async (req, res) => {
               res.status(500).send({ message: err });
               return;
             }
-            const token = jwt.sign({ user }, JWT_SECRET);
+
+            const token = jwt.sign({ user }, secret);
 
             res.status(201).json({
               token,
@@ -49,6 +53,7 @@ exports.signUp = async (req, res) => {
       Role.findOne({ name: "user" }, (err, role) => {
         if (err) {
           res.status(500).send({ message: err });
+          console.log("No roles exist in database yet.");
           return;
         }
 
@@ -59,7 +64,7 @@ exports.signUp = async (req, res) => {
             return;
           }
           // Give new user JWT Token with secret
-          const token = jwt.sign({ user }, JWT_SECRET);
+          const token = jwt.sign({ user }, secret);
 
           res.status(201).json({
             token,
