@@ -123,7 +123,7 @@ exports.login = async (req, res) => {
 //Initial Role Creation Function
 exports.initRoles = (req, res) => {
   console.log("Initiating Roles...");
-  Role.count((err, count) => {
+  Role.countDocuments((err, count) => {
     if (!err && count === 0) {
       new Role({
         name: "user",

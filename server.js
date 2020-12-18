@@ -45,11 +45,13 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(history()); // SPA Application Requirement
+
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       "script-src": ["'self'", "'unsafe-eval'"],
+      "connect-src": ["'self'"],
     },
   })
 );
