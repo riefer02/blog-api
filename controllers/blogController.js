@@ -2,9 +2,8 @@ const Blog = require("../models/Blog.js");
 
 // Retrieve all blogs from db
 exports.getBlogs = async (req, res) => {
-  let blogs = await Blog.find({}, (err, blogPosts) => {
+  let blogs = await Blog.find({}, (err) => {
     if (err) return console.log(err);
-    // console.log(blogPosts);
   });
   res.json({
     blogs,

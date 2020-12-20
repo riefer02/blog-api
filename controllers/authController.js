@@ -154,6 +154,10 @@ exports.initRoles = (req, res) => {
 
         console.log("added 'admin' to roles collection");
       });
+
+      res.json({
+        message: "Established roles in database",
+      });
     }
   });
 };
