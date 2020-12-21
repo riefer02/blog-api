@@ -9,6 +9,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const history = require("connect-history-api-fallback");
+const compression = require("compression");
 
 // build modules
 const path = require("path");
@@ -43,6 +44,7 @@ if (NODE_ENV === "development") {
 app.use(express.urlencoded({ extended: true })); // Parse incoming requests
 app.use(bodyParser.json());
 app.use(cors());
+app.use(compression());
 
 app.use(history()); // SPA Application Requirement
 
