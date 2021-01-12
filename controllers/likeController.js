@@ -1,7 +1,6 @@
 const Blog = require("../models/Blog.js");
 
 exports.likeBlogPost = async (req, res) => {
-  console.log(req.body);
   const blogPost = await Blog.findById(req.body.blogID)
     .then((blog) => {
       return blog;

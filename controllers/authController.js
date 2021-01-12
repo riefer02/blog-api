@@ -13,11 +13,9 @@ exports.signUp = async (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
   });
-  console.log(newUser + "newUser created.");
   newUser.save((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
-      console.log("There was an error saving the user.");
       return;
     }
     // If new user has a role already assign that to their document
@@ -53,7 +51,6 @@ exports.signUp = async (req, res) => {
       Role.findOne({ name: "user" }, (err, role) => {
         if (err) {
           res.status(500).send({ message: err });
-          console.log("No roles exist in database yet.");
           return;
         }
 
