@@ -1,5 +1,3 @@
-console.log("Blog API build v1.0...engage!");
-
 const { MONGODB_PASSWORD, MONGODB_URI, NODE_ENV } = require("./config");
 const express = require("express");
 const mongoose = require("mongoose");
