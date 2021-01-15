@@ -14,13 +14,10 @@ exports.createComment = async (req, res) => {
     authorID: req.params.id,
   });
 
-  console.log(newComment);
   await newComment.save(newComment).then((commentData) => {
-    console.log("Trying to Save to Blog Comment Array..");
     return Blog.findById(req.params.id).then((blog) => {
-      console.log(blog);
       blog.comments.unshift(commentData);
-      console.log("blog after adding comment", newComment);
+
       return blog
         .save()
         .then((commentData) => {

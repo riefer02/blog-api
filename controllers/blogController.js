@@ -32,7 +32,6 @@ exports.createBlog = async (req, res) => {
 
   await blogPost.save(function (err, post) {
     if (err) return err;
-    console.log(post);
     res.json({
       post,
     });
@@ -40,7 +39,6 @@ exports.createBlog = async (req, res) => {
 };
 
 exports.deleteBlog = async (req, res) => {
-  console.log("Deleting blog...");
   await Blog.deleteOne({ _id: req.params.id }, (err) => {
     if (err) return console.log(err);
   });
@@ -50,8 +48,6 @@ exports.deleteBlog = async (req, res) => {
 };
 
 exports.updateBlog = async (req, res) => {
-  console.log("Updating blog...");
-  console.log(req.body);
   const updatedBlog = req.body;
   await Blog.findOneAndUpdate({ _id: req.params.id }, updatedBlog, (err) => {
     if (err) return console.log(err);
