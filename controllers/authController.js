@@ -74,7 +74,6 @@ exports.signUp = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  console.log("trying to sign in...");
   await User.findOne({
     username: req.body.username,
   })
@@ -119,7 +118,6 @@ exports.login = async (req, res) => {
 
 //Initial Role Creation Function
 exports.initRoles = (req, res) => {
-  console.log("Initiating Roles...");
   Role.countDocuments((err, count) => {
     if (!err && count === 0) {
       new Role({
