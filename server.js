@@ -13,7 +13,6 @@ const compression = require("compression");
 const path = require("path");
 const publicPath = path.resolve(__dirname, "./public");
 
-// const blogModel = require("./models/Blog.js");
 const blogRouter = require("./routes/blogRoutes");
 const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
