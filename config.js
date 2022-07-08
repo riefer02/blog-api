@@ -1,4 +1,5 @@
-require("dotenv").config({ path: "./config.env" });
+require("dotenv").config({ path: "./.env" });
+
 module.exports = {
   MONGODB_URI: process.env.MONGODB_URI,
   MONGODB_PASSWORD: process.env.MONGODB_PASSWORD,
